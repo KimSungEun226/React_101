@@ -16,9 +16,13 @@ const Todo = (props) => {
     const deleteItem = props.deleteItem;
     const editItem = props.editItem;
 
+    const checkboxEventHandler = (e) => {
+        item.done = e.target.checked;
+        editItem(item);
+    }
+
     const editEventHandler = (e) => {
-        item.title = e.target.value;
-        editItem();
+        setItem({...item, title: e.target.value});
     }
 
     const deleteEventHandler = () => {
@@ -32,21 +36,22 @@ const Todo = (props) => {
 
     // turnOnReadOnly 함수 작성
     const turnOnReadOnly = (e) => {
-        if (e.key == "Enter") {
+        if (e.key == "Enter" && readOnly == false) {
             setReadOnly(true);
+            editItem(item);
         }
     };
 
     return (
         <ListItem>
-            <Checkbox checked={item.done}/>
+            <Checkbox checked={item.done} onChange={checkboxEventHandler}/>
             <ListItemText>
                 <InputBase
                   inputProps={{"aria-label":"naked",
                                 readOnly: readOnly}}
                   onClick={turnOffReadOnly}
                   onKeyDown={turnOnReadOnly}
-                  //onChange={editEventHandler}
+                  onChange={editEventHandler}
                   type="text"
                   id={item.id}
                   name={item.id}
