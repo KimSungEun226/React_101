@@ -13,6 +13,11 @@ function Login() {
         signin({username: username, password: password});
     };
 
+    const linkToPractice = (event) => {
+        event.preventDefault();
+        window.location.href = "huibigo/funnyBoard"
+    }
+
     return (
         <Container component="main" maxWidth="xs" style={({ marginTop: "8%"})}>
          <Grid container spacing={2}>
@@ -61,7 +66,9 @@ function Login() {
                 </Grid>
             </Grid>
           </form> 
+          <Button fullWidth variant="contained" color="primary" onClick={linkToPractice}>로그인</Button>
         </Container>
+        
     );
 };
 
